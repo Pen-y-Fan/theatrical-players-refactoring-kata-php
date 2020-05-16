@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Theatrical;
 
 use Error;
+use NumberFormatter;
 
 class StatementPrinter
 {
@@ -19,19 +20,17 @@ class StatementPrinter
         $totalAmount = 0;
         $volumeCredits = 0;
 
-        $result = 'Statement for ' . $invoice->customer . '\n';
-
-        foreach($invoice->performances as $performance)
-        {
+        $result = 'Statement for ' . $invoice->customer . PHP_EOL;
+        $formatter = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+        foreach ($invoice->performances as $performance) {
             $volumeCredits += $this->volumeCreditsFor($performance);
-            $thisFinalAmount = $this->amountFor($performance) / 100;
-            $result = "{$this->playFor($performance)->name}: $thisFinalAmount ({$performance->audience} seats)\n";
+            $result .= "  {$this->playFor($performance)->name}: {$formatter->formatCurrency(($this->amountFor($performance)/100), 'USD')} ({$performance->audience} seats)" . PHP_EOL;
             $totalAmount += $this->amountFor($performance);
         }
 
-        $finalTotal = ($totalAmount / 100);
-        $result .= "Amount owed is $finalTotal\n";
-        $result .= "You earned $volumeCredits credits\n";
+        $finalTotal = $formatter->formatCurrency(($totalAmount / 100), 'USD');
+        $result .= "Amount owed is $finalTotal" . PHP_EOL;
+        $result .= "You earned $volumeCredits credits" . PHP_EOL;
         return $result;
     }
 
