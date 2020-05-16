@@ -8,8 +8,14 @@ use Error;
 
 class StatementPrinter
 {
-    public function print(Invoice $invoice, array $plays) 
+    /**
+     * @var Play
+     */
+    private $plays;
+
+    public function print(Invoice $invoice, array $plays)
     {
+        $this->plays = $plays;
         $totalAmount = 0;
         $volumeCredits = 0;
 
@@ -17,17 +23,15 @@ class StatementPrinter
 
         foreach($invoice->performances as $performance)
         {
-            $play = $plays[$performance->play_id];
-
-            $thisAmount = $this->amountFor($play, $performance);
+            $thisAmount = $this->amountFor($this->playFor($performance), $performance);
 
             $volumeCredits += max($performance->audience - 30, 0);
-            if($play->type == 'comedy')
+            if($this->playFor($performance)->type == 'comedy')
             {
                 $volumeCredits += floor($performance->audience / 5);
             }
             $thisFinalAmount = $thisAmount / 100;
-            $result = "$play->name: $thisFinalAmount ($performance->audience seats)\n";
+            $result = "{$this->playFor($performance)->name}: $thisFinalAmount ({$performance->audience} seats)\n";
             $totalAmount += $thisAmount;
         }
 
@@ -40,9 +44,9 @@ class StatementPrinter
     /**
      * @param $play
      * @param $performance
-     * @return float|int
+     * @return float
      */
-    private function amountFor(Play $play, Performance $performance)
+    private function amountFor(Play $play, Performance $performance): float
     {
         switch ($play->type) {
             case "tragedy":
@@ -64,5 +68,14 @@ class StatementPrinter
                 throw new Error("Unknown type: $play->type");
         }
         return $result;
+    }
+
+    /**
+     * @param Performance $performance
+     * @return Play
+     */
+    private function playFor(Performance $performance): Play
+    {
+        return $this->plays[$performance->play_id];
     }
 }
