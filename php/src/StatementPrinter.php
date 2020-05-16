@@ -33,11 +33,7 @@ class StatementPrinter
         return $result;
     }
 
-    /**
-     * @param $performance
-     * @return float
-     */
-    private function amountFor(Performance $performance): float
+    private function amountFor(Performance $performance): int
     {
         switch ($this->playFor($performance)->type) {
             case "tragedy":
@@ -58,34 +54,26 @@ class StatementPrinter
             default:
                 throw new Error("Unknown type: {$this->playFor($performance)->type}");
         }
-        return $result;
+        return (int)$result;
     }
 
-    /**
-     * @param Performance $performance
-     * @return Play
-     */
     private function playFor(Performance $performance): Play
     {
         return $this->plays[$performance->play_id];
     }
 
-    /**
-     * @param $performance
-     * @return float
-     */
-    private function volumeCreditsFor(Performance $performance): float
+    private function volumeCreditsFor(Performance $performance): int
     {
         $result = max($performance->audience - 30, 0);
         if ($this->playFor($performance)->type == 'comedy') {
             $result += floor($performance->audience / 5);
         }
-        return $result;
+        return (int)$result;
     }
 
-    private function usd($value): string
+    private function usd(float $value): string
     {
         return (new NumberFormatter('en_US', NumberFormatter::CURRENCY))
-            ->formatCurrency($value/100, 'USD');
+            ->formatCurrency($value / 100, 'USD');
     }
 }
