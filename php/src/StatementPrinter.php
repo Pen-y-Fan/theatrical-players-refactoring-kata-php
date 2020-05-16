@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Theatrical;
 
 use Error;
-use Theatrical\Play;
-use Theatrical\Invoice;
-use Theatrical\Performance;
 
 class StatementPrinter
 {
