@@ -22,12 +22,12 @@ class StatementPrinter
     {
         $this->invoice = $invoice;
         $this->plays = $plays;
-        $totalAmount = $this->totalAmount();
-        $result = 'Statement for ' . $invoice->customer . PHP_EOL;
+
+        $result = "Statement for {$invoice->customer}" . PHP_EOL;
         foreach ($this->invoice->performances as $performance) {
             $result .= "  {$this->playFor($performance)->name}: {$this->usd($this->amountFor($performance))} ({$performance->audience} seats)" . PHP_EOL;
         }
-        $finalTotal = $this->usd($totalAmount);
+        $finalTotal = $this->usd($this->totalAmount());
         $result .= "Amount owed is $finalTotal" . PHP_EOL;
         $result .= "You earned {$this->totalVolumeCredits()} credits" . PHP_EOL;
         return $result;
