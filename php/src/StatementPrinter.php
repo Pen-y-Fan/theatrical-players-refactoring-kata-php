@@ -18,7 +18,11 @@ class StatementPrinter
      */
     private $invoice;
 
-    public function print(Invoice $invoice, array $plays)
+    public function print(Invoice $invoice, array $plays): string
+    {
+        return $this->renderPlainText($invoice, $plays);
+    }
+    public function renderPlainText(Invoice $invoice, array $plays): string
     {
         $this->invoice = $invoice;
         $this->plays = $plays;
