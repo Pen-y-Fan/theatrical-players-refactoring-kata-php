@@ -23,16 +23,14 @@ class StatementPrinter
 
         foreach($invoice->performances as $performance)
         {
-            $thisAmount = $this->amountFor($performance);
-
             $volumeCredits += max($performance->audience - 30, 0);
             if($this->playFor($performance)->type == 'comedy')
             {
                 $volumeCredits += floor($performance->audience / 5);
             }
-            $thisFinalAmount = $thisAmount / 100;
+            $thisFinalAmount = $this->amountFor($performance) / 100;
             $result = "{$this->playFor($performance)->name}: $thisFinalAmount ({$performance->audience} seats)\n";
-            $totalAmount += $thisAmount;
+            $totalAmount += $this->amountFor($performance);
         }
 
         $finalTotal = ($totalAmount / 100);
