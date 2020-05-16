@@ -21,14 +21,13 @@ class StatementPrinter
         $volumeCredits = 0;
 
         $result = 'Statement for ' . $invoice->customer . PHP_EOL;
-        $formatter = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         foreach ($invoice->performances as $performance) {
             $volumeCredits += $this->volumeCreditsFor($performance);
-            $result .= "  {$this->playFor($performance)->name}: {$formatter->formatCurrency(($this->amountFor($performance)/100), 'USD')} ({$performance->audience} seats)" . PHP_EOL;
+            $result .= "  {$this->playFor($performance)->name}: {$this->usd($this->amountFor($performance))} ({$performance->audience} seats)" . PHP_EOL;
             $totalAmount += $this->amountFor($performance);
         }
 
-        $finalTotal = $formatter->formatCurrency(($totalAmount / 100), 'USD');
+        $finalTotal = $this->usd($totalAmount);
         $result .= "Amount owed is $finalTotal" . PHP_EOL;
         $result .= "You earned $volumeCredits credits" . PHP_EOL;
         return $result;
@@ -82,5 +81,11 @@ class StatementPrinter
             $result += floor($performance->audience / 5);
         }
         return $result;
+    }
+
+    private function usd($value): string
+    {
+        return (new NumberFormatter('en_US', NumberFormatter::CURRENCY))
+            ->formatCurrency($value/100, 'USD');
     }
 }
