@@ -29,10 +29,9 @@ class StatementPrinter
             $result .= "  {$this->playFor($performance)->name}: {$this->usd($this->amountFor($performance))} ({$performance->audience} seats)" . PHP_EOL;
             $totalAmount += $this->amountFor($performance);
         }
-        $volumeCredits = $this->totalVolumeCredits();
         $finalTotal = $this->usd($totalAmount);
         $result .= "Amount owed is $finalTotal" . PHP_EOL;
-        $result .= "You earned $volumeCredits credits" . PHP_EOL;
+        $result .= "You earned {$this->totalVolumeCredits()} credits" . PHP_EOL;
         return $result;
     }
 
