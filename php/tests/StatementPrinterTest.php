@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use PHPUnit\Framework\TestCase;
 use ApprovalTests\Approvals;
 
@@ -10,7 +12,7 @@ use Theatrical\Invoice;
 
 final class StatementPrinterTest extends TestCase
 {
-    public function testCanPrintInvoice() : void
+    public function testCanPrintInvoice(): void
     {
         $plays = [
             "hamlet" => new Play("Hamlet", "tragedy"),
@@ -30,7 +32,7 @@ final class StatementPrinterTest extends TestCase
         Approvals::verifyString($result);
     }
 
-    public function testNewPlayTypes() : void
+    public function testNewPlayTypes(): void
     {
         $plays = [
             "henry-v" => new Play("Henry V", "history"),
@@ -44,7 +46,7 @@ final class StatementPrinterTest extends TestCase
 
         $invoice = new Invoice("BigCo", $performances);
         $statementPrinter = new StatementPrinter();
-        $this->expectException(\Error::class);
+        $this->expectException(Error::class);
         $statementPrinter->print($invoice, $plays);
     }
 }
