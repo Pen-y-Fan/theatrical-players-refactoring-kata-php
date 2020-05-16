@@ -23,11 +23,7 @@ class StatementPrinter
 
         foreach($invoice->performances as $performance)
         {
-            $volumeCredits += max($performance->audience - 30, 0);
-            if($this->playFor($performance)->type == 'comedy')
-            {
-                $volumeCredits += floor($performance->audience / 5);
-            }
+            $volumeCredits += $this->volumeCreditsFor($performance);
             $thisFinalAmount = $this->amountFor($performance) / 100;
             $result = "{$this->playFor($performance)->name}: $thisFinalAmount ({$performance->audience} seats)\n";
             $totalAmount += $this->amountFor($performance);
@@ -40,7 +36,6 @@ class StatementPrinter
     }
 
     /**
-     * @param $play
      * @param $performance
      * @return float
      */
@@ -75,5 +70,18 @@ class StatementPrinter
     private function playFor(Performance $performance): Play
     {
         return $this->plays[$performance->play_id];
+    }
+
+    /**
+     * @param $performance
+     * @return float
+     */
+    private function volumeCreditsFor(Performance $performance): float
+    {
+        $volumeCredits = max($performance->audience - 30, 0);
+        if ($this->playFor($performance)->type == 'comedy') {
+            $volumeCredits += floor($performance->audience / 5);
+        }
+        return $volumeCredits;
     }
 }
