@@ -79,11 +79,11 @@ class StatementPrinter
 
     private function totalVolumeCredits(): int
     {
-        $volumeCredits = 0;
+        $result = 0;
         foreach ($this->invoice->performances as $performance) {
-            $volumeCredits += $this->volumeCreditsFor($performance);
+            $result += $this->volumeCreditsFor($performance);
         }
-        return $volumeCredits;
+        return $result;
     }
 
     private function totalAmount(): int
