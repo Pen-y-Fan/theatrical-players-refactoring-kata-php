@@ -78,10 +78,10 @@ class StatementPrinter
      */
     private function volumeCreditsFor(Performance $performance): float
     {
-        $volumeCredits = max($performance->audience - 30, 0);
+        $result = max($performance->audience - 30, 0);
         if ($this->playFor($performance)->type == 'comedy') {
-            $volumeCredits += floor($performance->audience / 5);
+            $result += floor($performance->audience / 5);
         }
-        return $volumeCredits;
+        return $result;
     }
 }
