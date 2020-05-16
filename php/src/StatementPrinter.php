@@ -18,15 +18,16 @@ class StatementPrinter
     {
         $this->plays = $plays;
         $totalAmount = 0;
-        $volumeCredits = 0;
 
         $result = 'Statement for ' . $invoice->customer . PHP_EOL;
         foreach ($invoice->performances as $performance) {
-            $volumeCredits += $this->volumeCreditsFor($performance);
             $result .= "  {$this->playFor($performance)->name}: {$this->usd($this->amountFor($performance))} ({$performance->audience} seats)" . PHP_EOL;
             $totalAmount += $this->amountFor($performance);
         }
-
+        $volumeCredits = 0;
+        foreach ($invoice->performances as $performance) {
+            $volumeCredits += $this->volumeCreditsFor($performance);
+        }
         $finalTotal = $this->usd($totalAmount);
         $result .= "Amount owed is $finalTotal" . PHP_EOL;
         $result .= "You earned $volumeCredits credits" . PHP_EOL;
