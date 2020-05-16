@@ -6,6 +6,7 @@ namespace Theatrical;
 
 use Error;
 use NumberFormatter;
+use stdClass;
 
 class StatementPrinter
 {
@@ -20,20 +21,24 @@ class StatementPrinter
 
     public function print(Invoice $invoice, array $plays): string
     {
-        return $this->renderPlainText($invoice, $plays);
-    }
-    public function renderPlainText(Invoice $invoice, array $plays): string
-    {
         $this->invoice = $invoice;
         $this->plays = $plays;
-
-        $result = "Statement for {$invoice->customer}" . PHP_EOL;
-        foreach ($this->invoice->performances as $performance) {
+        $statementData = new stdClass();
+        $statementData->customer = $this->invoice->customer;
+        $statementData->totalAmount = $this->usd($this->totalAmount());
+        $statementData->performances = $this->invoice->performances;
+        $statementData->totalVolumeCredits = $this->totalVolumeCredits();
+        return $this->renderPlainText($statementData);
+    }
+    public function renderPlainText(stdClass $data): string
+    {
+        $result = "Statement for {$data->customer}" . PHP_EOL;
+        foreach ($data->performances as $performance) {
             $result .= "  {$this->playFor($performance)->name}: {$this->usd($this->amountFor($performance))}";
             $result .= " ({$performance->audience} seats)" . PHP_EOL;
         }
-        $result .= "Amount owed is {$this->usd($this->totalAmount())}" . PHP_EOL;
-        $result .= "You earned {$this->totalVolumeCredits()} credits" . PHP_EOL;
+        $result .= "Amount owed is {$data->totalAmount}" . PHP_EOL;
+        $result .= "You earned {$data->totalVolumeCredits} credits" . PHP_EOL;
         return $result;
     }
 
