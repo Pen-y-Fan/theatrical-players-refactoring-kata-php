@@ -88,10 +88,10 @@ class StatementPrinter
 
     private function totalAmount(): int
     {
-        $totalAmount = 0;
+        $result = 0;
         foreach ($this->invoice->performances as $performance) {
-            $totalAmount += $this->amountFor($performance);
+            $result += $this->amountFor($performance);
         }
-        return $totalAmount;
+        return $result;
     }
 }
