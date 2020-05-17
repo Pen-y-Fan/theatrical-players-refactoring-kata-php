@@ -50,4 +50,14 @@ class PerformanceCalculator
         }
         return $result;
     }
+
+    public function volumeCredit(): int
+    {
+        $result = max($this->performance->audience - 30, 0);
+        if ($this->play->type === 'comedy') {
+            $result += floor($this->performance->audience / 5);
+        }
+        return (int) $result;
+    }
+
 }

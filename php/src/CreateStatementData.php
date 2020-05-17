@@ -23,15 +23,6 @@ class CreateStatementData
         return $plays[$performance->play_id];
     }
 
-    private function volumeCreditFor(Performance $performance): int
-    {
-        $result = max($performance->audience - 30, 0);
-        if ($performance->play->type === 'comedy') {
-            $result += floor($performance->audience / 5);
-        }
-        return (int) $result;
-    }
-
     private function totalVolumeCredits(array $performances): int
     {
         return array_reduce($performances, function ($total, $performance) {
@@ -53,7 +44,7 @@ class CreateStatementData
             $result = clone $performance;
             $result->play = clone $calculator->play;
             $result->amount = $calculator->getAmount();
-            $result->volumeCredit = $this->volumeCreditFor($result);
+            $result->volumeCredit = $calculator->volumeCredit();
             return $result;
         }, $performances);
     }
