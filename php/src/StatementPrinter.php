@@ -98,11 +98,9 @@ class StatementPrinter
 
     private function totalAmount($performances): int
     {
-        $result = 0;
-        foreach ($performances as $performance) {
-            $result += $performance->amount;
-        }
-        return $result;
+        return array_reduce($performances, function ($total, $performance){
+            return $total + $performance->amount;
+        },0);
     }
 
     private function enrichPerformance($performance)
