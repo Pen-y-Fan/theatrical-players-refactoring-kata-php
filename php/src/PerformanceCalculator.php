@@ -11,7 +11,7 @@ class PerformanceCalculator
     /**
      * @var Performance
      */
-    private $performance;
+    protected $performance;
 
     /**
      * @var Play
@@ -29,7 +29,7 @@ class PerformanceCalculator
         $this->play = $play;
     }
 
-    public function getAmount()
+    public function getAmount(): int
     {
         switch ($this->play->type) {
             case "tragedy":
