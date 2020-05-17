@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+namespace Tests;
+
 use ApprovalTests\Approvals;
+use Error;
 use PHPUnit\Framework\TestCase;
 
 use Theatrical\Invoice;
@@ -39,10 +42,7 @@ final class StatementPrinterTest extends TestCase
             'as-like' => new Play('As You Like It', 'comedy'),
         ];
 
-        $performances = [
-            new Performance('henry-v', 53),
-            new Performance('as-like', 55),
-        ];
+        $performances = [new Performance('henry-v', 53), new Performance('as-like', 55)];
 
         $invoice = new Invoice('BigCo', $performances);
         $statementPrinter = new StatementPrinter();

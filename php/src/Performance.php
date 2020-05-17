@@ -6,11 +6,22 @@ namespace Theatrical;
 
 class Performance
 {
+    /**
+     * @var string
+     */
     public $play_id;
 
+    /**
+     * @var int
+     */
     public $audience;
 
-    public function __construct($play_id, $audience)
+    /**
+     * @var Play
+     */
+    public $play;
+
+    public function __construct(string $play_id, int $audience)
     {
         $this->play_id = $play_id;
         $this->audience = $audience;

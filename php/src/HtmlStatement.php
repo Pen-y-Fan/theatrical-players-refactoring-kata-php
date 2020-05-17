@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
+use stdClass;
+
 class HtmlStatement
 {
     use UsdTrait;
@@ -13,7 +15,7 @@ class HtmlStatement
         return $this->renderHtml((new CreateStatementData())->createStatementData($invoice, $plays));
     }
 
-    public function renderHtml($data): string
+    public function renderHtml(stdClass $data): string
     {
         $result = "<h1>Statement for {$data->customer}</h1>\n";
         $result .= "<table>\n";

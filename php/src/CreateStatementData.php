@@ -19,7 +19,7 @@ class CreateStatementData
         return $statementData;
     }
 
-    private function amountFor($performance): int
+    private function amountFor(Performance $performance): int
     {
         switch ($performance->play->type) {
             case 'tragedy':
@@ -48,7 +48,7 @@ class CreateStatementData
         return $plays[$performance->play_id];
     }
 
-    private function volumeCreditFor($performance): int
+    private function volumeCreditFor(Performance $performance): int
     {
         $result = max($performance->audience - 30, 0);
         if ($performance->play->type === 'comedy') {
@@ -57,21 +57,21 @@ class CreateStatementData
         return (int) $result;
     }
 
-    private function totalVolumeCredits($performances): int
+    private function totalVolumeCredits(array $performances): int
     {
         return array_reduce($performances, function ($total, $performance) {
             return $total + $performance->volumeCredit;
         }, 0);
     }
 
-    private function totalAmount($performances): int
+    private function totalAmount(array $performances): int
     {
         return array_reduce($performances, function ($total, $performance) {
             return $total + $performance->amount;
         }, 0);
     }
 
-    private function enrichPerformance($performances, $plays)
+    private function enrichPerformance(array $performances, array $plays): array
     {
         return array_map(function ($performance) use ($plays) {
             $result = clone $performance;
