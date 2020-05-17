@@ -31,16 +31,17 @@ class PerformanceCalculator
 
     public function getAmount(): int
     {
-        Throw new Error('subclass responsibility');
+        throw new Error('subclass responsibility');
     }
 
-    public function volumeCredit(): int
+    public function volumeCredits(): int
     {
-        $result = max($this->performance->audience - 30, 0);
-        if ($this->play->type === 'comedy') {
-            $result += floor($this->performance->audience / 5);
-        }
-        return (int) $result;
+        return (int) $this->getVolumeCredits();
+    }
+
+    protected function getVolumeCredits(): int
+    {
+        return (int) max($this->performance->audience - 30, 0);
     }
 
 }

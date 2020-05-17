@@ -45,7 +45,7 @@ class CreateStatementData
             $result = clone $performance;
             $result->play = clone $calculator->play;
             $result->amount = $calculator->getAmount();
-            $result->volumeCredit = $calculator->volumeCredit();
+            $result->volumeCredit = $calculator->volumeCredits();
             return $result;
         }, $performances);
     }
