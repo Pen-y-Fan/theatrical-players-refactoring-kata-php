@@ -25,9 +25,9 @@ class StatementPrinter
         $this->plays = $plays;
         $statementData = new stdClass();
         $statementData->customer = $this->invoice->customer;
-        $statementData->totalAmount = $this->usd($this->totalAmount());
-        $statementData->performances = array_map([$this, "enrichPerformance"], $this->invoice->performances);
         $statementData->totalVolumeCredits = $this->totalVolumeCredits();
+        $statementData->performances = array_map([$this, "enrichPerformance"], $this->invoice->performances);
+        $statementData->totalAmount = $this->usd($this->totalAmount($statementData->performances));
         return $this->renderPlainText($statementData);
     }
 
@@ -35,7 +35,7 @@ class StatementPrinter
     {
         $result = "Statement for {$data->customer}" . PHP_EOL;
         foreach ($data->performances as $performance) {
-            $result .= "  {$this->playFor($performance)->name}: {$this->usd($this->amountFor($performance))}";
+            $result .= "  {$performance->play->name}: {$this->usd($this->amountFor($performance))}";
             $result .= " ({$performance->audience} seats)" . PHP_EOL;
         }
         $result .= "Amount owed is {$data->totalAmount}" . PHP_EOL;
@@ -43,9 +43,9 @@ class StatementPrinter
         return $result;
     }
 
-    private function amountFor(Performance $performance): int
+    private function amountFor($performance): int
     {
-        switch ($this->playFor($performance)->type) {
+        switch ($performance->play->type) {
             case "tragedy":
                 $result = 40000;
                 if ($performance->audience > 30) {
@@ -62,7 +62,7 @@ class StatementPrinter
                 break;
 
             default:
-                throw new Error("Unknown type: {$this->playFor($performance)->type}");
+                throw new Error("Unknown type: {$performance->play->type}");
         }
         return (int)$result;
     }
@@ -96,10 +96,10 @@ class StatementPrinter
         return $result;
     }
 
-    private function totalAmount(): int
+    private function totalAmount($performances): int
     {
         $result = 0;
-        foreach ($this->invoice->performances as $performance) {
+        foreach ($performances as $performance) {
             $result += $this->amountFor($performance);
         }
         return $result;
@@ -108,6 +108,7 @@ class StatementPrinter
     private function enrichPerformance($performance)
     {
         $result = clone $performance;
+        $result->play = clone $this->playFor($result);
         return $result;
     }
 }
