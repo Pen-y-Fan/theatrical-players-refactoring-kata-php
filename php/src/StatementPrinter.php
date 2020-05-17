@@ -35,7 +35,7 @@ class StatementPrinter
     {
         $result = "Statement for {$data->customer}" . PHP_EOL;
         foreach ($data->performances as $performance) {
-            $result .= "  {$performance->play->name}: {$this->usd($this->amountFor($performance))}";
+            $result .= "  {$performance->play->name}: {$this->usd($performance->amount)}";
             $result .= " ({$performance->audience} seats)" . PHP_EOL;
         }
         $result .= "Amount owed is {$data->totalAmount}" . PHP_EOL;
@@ -100,7 +100,7 @@ class StatementPrinter
     {
         $result = 0;
         foreach ($performances as $performance) {
-            $result += $this->amountFor($performance);
+            $result += $performance->amount;
         }
         return $result;
     }
@@ -109,6 +109,7 @@ class StatementPrinter
     {
         $result = clone $performance;
         $result->play = clone $this->playFor($result);
+        $result->amount = $this->amountFor($result);
         return $result;
     }
 }
