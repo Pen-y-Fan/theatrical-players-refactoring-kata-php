@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
+use Error;
 use stdClass;
 
 class CreateStatementData
@@ -56,6 +57,11 @@ class CreateStatementData
      */
     private function createPerformanceCalculator(Performance $performance, Play $play): PerformanceCalculator
     {
-        return new PerformanceCalculator($performance, $play);
+        switch($play->type) {
+            case "tragedy": return new TragedyCalculator($performance, $play);
+            case "comedy" : return new ComedyCalculator($performance, $play);
+            default:
+                throw new Error("unknown type: {$play->type}");
+        }
     }
 }
