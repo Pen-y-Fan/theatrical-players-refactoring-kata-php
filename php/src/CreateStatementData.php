@@ -40,7 +40,7 @@ class CreateStatementData
     private function enrichPerformance(array $performances, array $plays): array
     {
         return array_map(function ($performance) use ($plays) {
-            $calculator = $this->createPerformanceCalculator($performance, $plays);
+            $calculator = $this->createPerformanceCalculator($performance, $this->playFor($performance, $plays));
             $result = clone $performance;
             $result->play = clone $calculator->play;
             $result->amount = $calculator->getAmount();
@@ -51,11 +51,11 @@ class CreateStatementData
 
     /**
      * @param Performance $performance
-     * @param array $plays
+     * @param Play $play
      * @return PerformanceCalculator
      */
-    private function createPerformanceCalculator(Performance $performance, array $plays): PerformanceCalculator
+    private function createPerformanceCalculator(Performance $performance, Play $play): PerformanceCalculator
     {
-        return new PerformanceCalculator($performance, $this->playFor($performance, $plays));
+        return new PerformanceCalculator($performance, $play);
     }
 }
