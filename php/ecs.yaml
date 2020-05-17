@@ -1,0 +1,34 @@
+parameters:
+    sets:
+        - 'psr12'
+        - 'php71'
+        - 'symplify'
+        - 'common'
+        - 'clean-code'
+
+    line_ending: "\n"
+
+    # 4 spaces
+    indentation: "    "
+
+    skip:
+        Symplify\CodingStandard\Sniffs\Architecture\DuplicatedClassShortNameSniff: null
+        # Allow snake_case for tests
+        PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff:
+            - tests/**
+        # Ignore what is not owned - Laravel's TestCase class does not start with 'Abstract'
+        Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff:
+            - tests/TestCase.php
+        # Ignore what is not owned - Laravel's traits do not end with 'Trait'
+        Symplify\CodingStandard\Sniffs\Naming\TraitNameSniff:
+            - tests/**
+        # Ignore what is not owned - CommentedOutCodeSniff
+        Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff.Found:
+            - app/Console/Kernel.php
+        # Ignore what is not owned - @return \Illuminate\Contracts\Validation\Validator
+        SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff.ReferenceViaFullyQualifiedName:
+            - app/Http/Controllers/Auth/RegisterController.php
+
+services:
+    Symplify\CodingStandard\Sniffs\CleanCode\CognitiveComplexitySniff:
+        max_cognitive_complexity: 8

@@ -1,0 +1,31 @@
+includes:
+    - vendor/symplify/phpstan-extensions/config/config.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+
+parameters:
+    paths:
+        - src
+        - tests
+
+    # The level 8 is the highest level
+    level: 8
+
+    checkGenericClassInNonGenericObjectType: false
+
+    # Larstan recommendation:
+    checkMissingIterableValueType: false
+
+    # to allow installing with various phsptan versions without reporting old errors here
+    reportUnmatchedIgnoredErrors: false
+
+    ignoreErrors:
+
+    # buggy
+
+    # mixed
+
+    # cache buggy
+
+    # tests
+
+    # iterable
