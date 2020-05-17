@@ -13,12 +13,18 @@ class PerformanceCalculator
     private $performance;
 
     /**
+     * @var Play
+     */
+    public $play;
+
+    /**
      * PerformanceCalculator constructor.
      * @param Performance $performance
+     * @param Play $play
      */
-    public function __construct(Performance $performance)
+    public function __construct(Performance $performance, Play $play)
     {
-
         $this->performance = $performance;
+        $this->play = $play;
     }
 }

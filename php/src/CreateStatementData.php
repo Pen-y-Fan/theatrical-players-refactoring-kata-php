@@ -74,9 +74,9 @@ class CreateStatementData
     private function enrichPerformance(array $performances, array $plays): array
     {
         return array_map(function ($performance) use ($plays) {
-            $calculator = new PerformanceCalculator($performance);
+            $calculator = new PerformanceCalculator($performance, $this->playFor($performance, $plays));
             $result = clone $performance;
-            $result->play = clone $this->playFor($result, $plays);
+            $result->play = clone $calculator->play;
             $result->amount = $this->amountFor($result);
             $result->volumeCredit = $this->volumeCreditFor($result);
             return $result;
