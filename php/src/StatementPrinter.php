@@ -20,7 +20,7 @@ class StatementPrinter
             $result .= "  {$performance->play->name}: {$this->usd($performance->amount)}";
             $result .= " ({$performance->audience} seats)" . PHP_EOL;
         }
-        $result .= "Amount owed is {$data->totalAmount}" . PHP_EOL;
+        $result .= "Amount owed is {$this->usd($data->totalAmount)}" . PHP_EOL;
         $result .= "You earned {$data->totalVolumeCredits} credits" . PHP_EOL;
         return $result;
     }

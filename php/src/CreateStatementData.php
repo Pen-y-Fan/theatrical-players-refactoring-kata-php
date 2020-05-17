@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Theatrical;
 
 use Error;
-use NumberFormatter;
 use stdClass;
 
 class CreateStatementData
@@ -16,7 +15,7 @@ class CreateStatementData
         $statementData->customer = $invoice->customer;
         $statementData->performances = $this->enrichPerformance($invoice->performances, $plays);
         $statementData->totalVolumeCredits = $this->totalVolumeCredits($statementData->performances);
-        $statementData->totalAmount = $this->usd($this->totalAmount($statementData->performances));
+        $statementData->totalAmount = $this->totalAmount($statementData->performances);
         return $statementData;
     }
 
@@ -56,12 +55,6 @@ class CreateStatementData
             $result += floor($performance->audience / 5);
         }
         return (int)$result;
-    }
-
-    private function usd(float $value): string
-    {
-        return (new NumberFormatter('en_US', NumberFormatter::CURRENCY))
-            ->formatCurrency($value / 100, 'USD');
     }
 
     private function totalVolumeCredits($performances): int
