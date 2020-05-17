@@ -22,14 +22,14 @@ class CreateStatementData
     private function amountFor($performance): int
     {
         switch ($performance->play->type) {
-            case "tragedy":
+            case 'tragedy':
                 $result = 40000;
                 if ($performance->audience > 30) {
                     $result += 1000 * ($performance->audience - 30);
                 }
                 break;
 
-            case "comedy":
+            case 'comedy':
                 $result = 30000;
                 if ($performance->audience > 20) {
                     $result += 10000 + 500 * ($performance->audience - 20);
@@ -40,7 +40,7 @@ class CreateStatementData
             default:
                 throw new Error("Unknown type: {$performance->play->type}");
         }
-        return (int)$result;
+        return (int) $result;
     }
 
     private function playFor(Performance $performance, array $plays): Play
@@ -51,29 +51,29 @@ class CreateStatementData
     private function volumeCreditFor($performance): int
     {
         $result = max($performance->audience - 30, 0);
-        if ($performance->play->type == 'comedy') {
+        if ($performance->play->type === 'comedy') {
             $result += floor($performance->audience / 5);
         }
-        return (int)$result;
+        return (int) $result;
     }
 
     private function totalVolumeCredits($performances): int
     {
-        return array_reduce($performances, function ($total, $performance){
+        return array_reduce($performances, function ($total, $performance) {
             return $total + $performance->volumeCredit;
-        },0);
+        }, 0);
     }
 
     private function totalAmount($performances): int
     {
-        return array_reduce($performances, function ($total, $performance){
+        return array_reduce($performances, function ($total, $performance) {
             return $total + $performance->amount;
-        },0);
+        }, 0);
     }
 
     private function enrichPerformance($performances, $plays)
     {
-        return array_map(function($performance) use ($plays) {
+        return array_map(function ($performance) use ($plays) {
             $result = clone $performance;
             $result->play = clone $this->playFor($result, $plays);
             $result->amount = $this->amountFor($result);

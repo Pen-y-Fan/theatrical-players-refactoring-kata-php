@@ -1,11 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Theatrical;
 
-class Performance 
+class Performance
 {
     public $play_id;
+
     public $audience;
 
     public function __construct($play_id, $audience)

@@ -16,7 +16,7 @@ class StatementPrinter
     public function renderPlainText($data): string
     {
         $result = "Statement for {$data->customer}" . PHP_EOL;
-        array_map(function($performance) use (&$result) {
+        array_map(function ($performance) use (&$result): void {
             $result .= "  {$performance->play->name}: {$this->usd($performance->amount)}";
             $result .= " ({$performance->audience} seats)" . PHP_EOL;
         }, $data->performances);
