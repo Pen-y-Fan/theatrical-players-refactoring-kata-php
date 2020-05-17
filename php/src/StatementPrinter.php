@@ -30,7 +30,7 @@ class StatementPrinter
         $statementData->totalVolumeCredits = $this->totalVolumeCredits();
         return $this->renderPlainText($statementData);
     }
-// page 27
+
     public function renderPlainText(stdClass $data): string
     {
         $result = "Statement for {$data->customer}" . PHP_EOL;
