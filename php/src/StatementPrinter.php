@@ -10,17 +10,11 @@ use stdClass;
 
 class StatementPrinter
 {
-    /**
-     * @var Play
-     */
-    private $plays;
-
     public function print(Invoice $invoice, array $plays): string
     {
-        $this->plays = $plays;
         $statementData = new stdClass();
         $statementData->customer = $invoice->customer;
-        $statementData->performances = array_map([$this, "enrichPerformance"], $invoice->performances);
+        $statementData->performances = $this->enrichPerformance($invoice->performances, $plays);
         $statementData->totalVolumeCredits = $this->totalVolumeCredits($statementData->performances);
         $statementData->totalAmount = $this->usd($this->totalAmount($statementData->performances));
         return $this->renderPlainText($statementData);
@@ -62,15 +56,15 @@ class StatementPrinter
         return (int)$result;
     }
 
-    private function playFor(Performance $performance): Play
+    private function playFor(Performance $performance, array $plays): Play
     {
-        return $this->plays[$performance->play_id];
+        return $plays[$performance->play_id];
     }
 
-    private function volumeCreditFor(Performance $performance): int
+    private function volumeCreditFor($performance): int
     {
         $result = max($performance->audience - 30, 0);
-        if ($this->playFor($performance)->type == 'comedy') {
+        if ($performance->play->type == 'comedy') {
             $result += floor($performance->audience / 5);
         }
         return (int)$result;
@@ -96,12 +90,14 @@ class StatementPrinter
         },0);
     }
 
-    private function enrichPerformance($performance)
+    private function enrichPerformance($performances, $plays)
     {
-        $result = clone $performance;
-        $result->play = clone $this->playFor($result);
-        $result->amount = $this->amountFor($result);
-        $result->volumeCredit = $this->volumeCreditFor($result);
-        return $result;
+        return array_map(function($performance) use ($plays) {
+            $result = clone $performance;
+            $result->play = clone $this->playFor($result, $plays);
+            $result->amount = $this->amountFor($result);
+            $result->volumeCredit = $this->volumeCreditFor($result);
+            return $result;
+        }, $performances);
     }
 }
