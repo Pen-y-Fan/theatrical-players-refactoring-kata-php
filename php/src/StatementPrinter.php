@@ -26,10 +26,11 @@ class StatementPrinter
         $statementData = new stdClass();
         $statementData->customer = $this->invoice->customer;
         $statementData->totalAmount = $this->usd($this->totalAmount());
-        $statementData->performances = $this->invoice->performances;
+        $statementData->performances = $this->enrichPerformance();
         $statementData->totalVolumeCredits = $this->totalVolumeCredits();
         return $this->renderPlainText($statementData);
     }
+// page 27
     public function renderPlainText(stdClass $data): string
     {
         $result = "Statement for {$data->customer}" . PHP_EOL;
@@ -101,6 +102,12 @@ class StatementPrinter
         foreach ($this->invoice->performances as $performance) {
             $result += $this->amountFor($performance);
         }
+        return $result;
+    }
+
+    private function enrichPerformance()
+    {
+        $result = $this->invoice->performances;
         return $result;
     }
 }
