@@ -14,18 +14,13 @@ class StatementPrinter
      * @var Play
      */
     private $plays;
-    /**
-     * @var Invoice
-     */
-    private $invoice;
 
     public function print(Invoice $invoice, array $plays): string
     {
-        $this->invoice = $invoice;
         $this->plays = $plays;
         $statementData = new stdClass();
-        $statementData->customer = $this->invoice->customer;
-        $statementData->performances = array_map([$this, "enrichPerformance"], $this->invoice->performances);
+        $statementData->customer = $invoice->customer;
+        $statementData->performances = array_map([$this, "enrichPerformance"], $invoice->performances);
         $statementData->totalVolumeCredits = $this->totalVolumeCredits($statementData->performances);
         $statementData->totalAmount = $this->usd($this->totalAmount($statementData->performances));
         return $this->renderPlainText($statementData);
