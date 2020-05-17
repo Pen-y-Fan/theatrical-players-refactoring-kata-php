@@ -25,8 +25,8 @@ class StatementPrinter
         $this->plays = $plays;
         $statementData = new stdClass();
         $statementData->customer = $this->invoice->customer;
-        $statementData->totalVolumeCredits = $this->totalVolumeCredits();
         $statementData->performances = array_map([$this, "enrichPerformance"], $this->invoice->performances);
+        $statementData->totalVolumeCredits = $this->totalVolumeCredits($statementData->performances);
         $statementData->totalAmount = $this->usd($this->totalAmount($statementData->performances));
         return $this->renderPlainText($statementData);
     }
@@ -72,7 +72,7 @@ class StatementPrinter
         return $this->plays[$performance->play_id];
     }
 
-    private function volumeCreditsFor(Performance $performance): int
+    private function volumeCreditFor(Performance $performance): int
     {
         $result = max($performance->audience - 30, 0);
         if ($this->playFor($performance)->type == 'comedy') {
@@ -87,11 +87,11 @@ class StatementPrinter
             ->formatCurrency($value / 100, 'USD');
     }
 
-    private function totalVolumeCredits(): int
+    private function totalVolumeCredits($performances): int
     {
         $result = 0;
-        foreach ($this->invoice->performances as $performance) {
-            $result += $this->volumeCreditsFor($performance);
+        foreach ($performances as $performance) {
+            $result += $performance->volumeCredit;
         }
         return $result;
     }
@@ -110,6 +110,7 @@ class StatementPrinter
         $result = clone $performance;
         $result->play = clone $this->playFor($result);
         $result->amount = $this->amountFor($result);
+        $result->volumeCredit = $this->volumeCreditFor($result);
         return $result;
     }
 }
