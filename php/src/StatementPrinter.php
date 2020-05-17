@@ -12,12 +12,17 @@ class StatementPrinter
 {
     public function print(Invoice $invoice, array $plays): string
     {
+        return $this->renderPlainText($this->createStatementData($invoice, $plays));
+    }
+
+    function createStatementData(Invoice $invoice, array $plays): stdClass
+    {
         $statementData = new stdClass();
         $statementData->customer = $invoice->customer;
         $statementData->performances = $this->enrichPerformance($invoice->performances, $plays);
         $statementData->totalVolumeCredits = $this->totalVolumeCredits($statementData->performances);
         $statementData->totalAmount = $this->usd($this->totalAmount($statementData->performances));
-        return $this->renderPlainText($statementData);
+        return $statementData;
     }
 
     public function renderPlainText(stdClass $data): string
