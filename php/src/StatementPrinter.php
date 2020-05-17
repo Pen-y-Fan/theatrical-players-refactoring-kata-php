@@ -89,11 +89,9 @@ class StatementPrinter
 
     private function totalVolumeCredits($performances): int
     {
-        $result = 0;
-        foreach ($performances as $performance) {
-            $result += $performance->volumeCredit;
-        }
-        return $result;
+        return array_reduce($performances, function ($total, $performance){
+            return $total + $performance->volumeCredit;
+        },0);
     }
 
     private function totalAmount($performances): int
