@@ -26,7 +26,7 @@ class StatementPrinter
         $statementData = new stdClass();
         $statementData->customer = $this->invoice->customer;
         $statementData->totalAmount = $this->usd($this->totalAmount());
-        $statementData->performances = $this->enrichPerformance();
+        $statementData->performances = array_map([$this, "enrichPerformance"], $this->invoice->performances);
         $statementData->totalVolumeCredits = $this->totalVolumeCredits();
         return $this->renderPlainText($statementData);
     }
@@ -105,9 +105,9 @@ class StatementPrinter
         return $result;
     }
 
-    private function enrichPerformance()
+    private function enrichPerformance($performance)
     {
-        $result = $this->invoice->performances;
+        $result = $performance;
         return $result;
     }
 }
