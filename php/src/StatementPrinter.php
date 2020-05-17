@@ -16,10 +16,10 @@ class StatementPrinter
     public function renderPlainText($data): string
     {
         $result = "Statement for {$data->customer}" . PHP_EOL;
-        foreach ($data->performances as $performance) {
+        array_map(function($performance) use (&$result) {
             $result .= "  {$performance->play->name}: {$this->usd($performance->amount)}";
             $result .= " ({$performance->audience} seats)" . PHP_EOL;
-        }
+        }, $data->performances);
         $result .= "Amount owed is {$this->usd($data->totalAmount)}" . PHP_EOL;
         $result .= "You earned {$data->totalVolumeCredits} credits" . PHP_EOL;
         return $result;
