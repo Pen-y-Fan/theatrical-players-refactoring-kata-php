@@ -107,7 +107,7 @@ class StatementPrinter
 
     private function enrichPerformance($performance)
     {
-        $result = $performance;
+        $result = clone $performance;
         return $result;
     }
 }
