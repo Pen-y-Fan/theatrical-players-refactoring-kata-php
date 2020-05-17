@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-use NumberFormatter;
-
 class StatementPrinter
 {
+    use UsdTrait;
+
     public function print(Invoice $invoice, array $plays): string
     {
         return $this->renderPlainText((new CreateStatementData())->createStatementData($invoice, $plays));
@@ -23,11 +23,5 @@ class StatementPrinter
         $result .= "Amount owed is {$this->usd($data->totalAmount)}" . PHP_EOL;
         $result .= "You earned {$data->totalVolumeCredits} credits" . PHP_EOL;
         return $result;
-    }
-
-    private function usd(float $value): string
-    {
-        return (new NumberFormatter('en_US', NumberFormatter::CURRENCY))
-            ->formatCurrency($value / 100, 'USD');
     }
 }
