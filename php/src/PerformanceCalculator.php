@@ -21,10 +21,8 @@ class PerformanceCalculator
     /**
      * PerformanceCalculator constructor.
      */
-    public function __construct(
-        Performance $performance,
-        Play $play
-    ) {
+    public function __construct(Performance $performance, Play $play)
+    {
         $this->performance = $performance;
         $this->play = $play;
     }

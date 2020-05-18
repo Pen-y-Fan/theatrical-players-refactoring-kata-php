@@ -10,13 +10,8 @@ parameters:
     # The level 8 is the highest level
     level: 8
 
-    checkGenericClassInNonGenericObjectType: false
-
     # Larstan recommendation:
     checkMissingIterableValueType: false
-
-    # to allow installing with various phsptan versions without reporting old errors here
-    reportUnmatchedIgnoredErrors: false
 
     ignoreErrors:
 

@@ -18,7 +18,6 @@ class ComedyCalculator extends PerformanceCalculator
 
     /**
      * getVolumeCredits() from parent PerformanceCalculator
-     * @return int
      */
     public function volumeCredits(): int
     {

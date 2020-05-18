@@ -50,7 +50,6 @@ class CreateStatementData
         }, $performances);
     }
 
-
     private function createPerformanceCalculator(Performance $performance, Play $play): PerformanceCalculator
     {
         switch ($play->type) {
