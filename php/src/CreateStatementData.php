@@ -50,16 +50,12 @@ class CreateStatementData
         }, $performances);
     }
 
-    /**
-     * @param Performance $performance
-     * @param Play $play
-     * @return PerformanceCalculator
-     */
+
     private function createPerformanceCalculator(Performance $performance, Play $play): PerformanceCalculator
     {
-        switch($play->type) {
-            case "tragedy": return new TragedyCalculator($performance, $play);
-            case "comedy" : return new ComedyCalculator($performance, $play);
+        switch ($play->type) {
+            case 'tragedy': return new TragedyCalculator($performance, $play);
+            case 'comedy': return new ComedyCalculator($performance, $play);
             default:
                 throw new Error("unknown type: {$play->type}");
         }

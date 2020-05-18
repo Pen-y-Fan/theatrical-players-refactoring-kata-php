@@ -22,6 +22,6 @@ class ComedyCalculator extends PerformanceCalculator
      */
     public function volumeCredits(): int
     {
-        return $this->getVolumeCredits()+ (int) floor($this->performance->audience / 5);
+        return $this->getVolumeCredits() + (int) floor($this->performance->audience / 5);
     }
 }

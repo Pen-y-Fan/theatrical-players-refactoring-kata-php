@@ -9,22 +9,22 @@ use Error;
 class PerformanceCalculator
 {
     /**
-     * @var Performance
-     */
-    protected $performance;
-
-    /**
      * @var Play
      */
     public $play;
 
     /**
-     * PerformanceCalculator constructor.
-     * @param Performance $performance
-     * @param Play $play
+     * @var Performance
      */
-    public function __construct(Performance $performance, Play $play)
-    {
+    protected $performance;
+
+    /**
+     * PerformanceCalculator constructor.
+     */
+    public function __construct(
+        Performance $performance,
+        Play $play
+    ) {
         $this->performance = $performance;
         $this->play = $play;
     }
@@ -43,5 +43,4 @@ class PerformanceCalculator
     {
         return (int) max($this->performance->audience - 30, 0);
     }
-
 }
