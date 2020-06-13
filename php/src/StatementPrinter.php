@@ -6,7 +6,7 @@ namespace Theatrical;
 
 use stdClass;
 
-class StatementPrinter
+final class StatementPrinter
 {
     use UsdTrait;
 

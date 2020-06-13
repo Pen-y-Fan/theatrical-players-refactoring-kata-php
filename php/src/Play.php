@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-class Play
+final class Play
 {
     /**
      * @var string
@@ -22,8 +22,8 @@ class Play
         $this->type = $type;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return (string) $this->name . ' : ' . $this->type;
+        return $this->name . ' : ' . $this->type;
     }
 }

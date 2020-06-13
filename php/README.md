@@ -18,7 +18,7 @@ Recommended:
 
 Clone the repository
 
-```sh
+```shell script
 git clone git@github.com:emilybache/Theatrical-Players-Refactoring-Kata.git
 ```
 
@@ -30,7 +30,7 @@ git clone https://github.com/emilybache/Theatrical-Players-Refactoring-Kata.git
 
 Install all the dependencies using composer:
 
-```sh
+```shell script
 cd ./Theatrical-Players-Refactoring-Kata/php
 composer install
 ```

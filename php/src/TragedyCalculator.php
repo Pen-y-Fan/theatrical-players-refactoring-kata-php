@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-class TragedyCalculator extends PerformanceCalculator
+final class TragedyCalculator extends PerformanceCalculator
 {
     public function getAmount(): int
     {

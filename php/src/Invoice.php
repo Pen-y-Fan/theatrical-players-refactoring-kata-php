@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-class Invoice
+final class Invoice
 {
     /**
      * @var string

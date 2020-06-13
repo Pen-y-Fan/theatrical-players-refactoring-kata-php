@@ -7,7 +7,7 @@ namespace Theatrical;
 use Error;
 use stdClass;
 
-class CreateStatementData
+final class CreateStatementData
 {
     public function createStatementData(Invoice $invoice, array $plays): stdClass
     {
@@ -38,6 +38,9 @@ class CreateStatementData
         }, 0);
     }
 
+    /**
+     * @return mixed[]
+     */
     private function enrichPerformance(array $performances, array $plays): array
     {
         return array_map(function ($performance) use ($plays) {

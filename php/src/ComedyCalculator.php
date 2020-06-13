@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-class ComedyCalculator extends PerformanceCalculator
+final class ComedyCalculator extends PerformanceCalculator
 {
     public function getAmount(): int
     {
@@ -12,8 +12,7 @@ class ComedyCalculator extends PerformanceCalculator
         if ($this->performance->audience > 20) {
             $result += 10000 + 500 * ($this->performance->audience - 20);
         }
-        $result += 300 * $this->performance->audience;
-        return $result;
+        return $result + 300 * $this->performance->audience;
     }
 
     /**

@@ -6,7 +6,7 @@ namespace Theatrical;
 
 use stdClass;
 
-class HtmlStatement
+final class HtmlStatement
 {
     use UsdTrait;
 

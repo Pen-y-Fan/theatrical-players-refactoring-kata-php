@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-class Performance
+final class Performance
 {
     /**
      * @var string

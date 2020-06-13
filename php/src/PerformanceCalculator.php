@@ -27,6 +27,9 @@ class PerformanceCalculator
         $this->play = $play;
     }
 
+    /**
+     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     */
     public function getAmount(): int
     {
         throw new Error('subclass responsibility');
