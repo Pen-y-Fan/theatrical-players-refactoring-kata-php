@@ -8,14 +8,9 @@ use Error;
 
 class PerformanceCalculator
 {
-    /**
-     * @var \Theatrical\Play
-     */
     public \Theatrical\Play $play;
 
-    /**
-     * @var \Theatrical\Performance
-     */
+
     protected \Theatrical\Performance $performance;
 
     public function __construct(Performance $performance, Play $play)
@@ -34,11 +29,11 @@ class PerformanceCalculator
 
     public function volumeCredits(): int
     {
-        return (int) $this->getVolumeCredits();
+        return $this->getVolumeCredits();
     }
 
     protected function getVolumeCredits(): int
     {
-        return (int) max($this->performance->audience - 30, 0);
+        return max($this->performance->audience - 30, 0);
     }
 }

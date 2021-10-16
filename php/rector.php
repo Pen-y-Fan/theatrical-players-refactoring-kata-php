@@ -24,7 +24,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // Define what rule sets will be applied
     // Contains RemoveUnusedPromotedPropertyRector which requires PHP 8 !
-    // $containerConfigurator->import(SetList::DEAD_CODE);
+     $containerConfigurator->import(SetList::DEAD_CODE);
 
     // here we can define, what sets of rules will be applied
     // tip: use "SetList" class to autocomplete sets

@@ -6,9 +6,6 @@ namespace Theatrical;
 
 final class Invoice
 {
-    /**
-     * @var string
-     */
     public string $customer;
 
     /**

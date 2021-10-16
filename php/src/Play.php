@@ -6,14 +6,9 @@ namespace Theatrical;
 
 final class Play
 {
-    /**
-     * @var string
-     */
     public string $name;
 
-    /**
-     * @var string
-     */
+
     public string $type;
 
     public function __construct(string $name, string $type)

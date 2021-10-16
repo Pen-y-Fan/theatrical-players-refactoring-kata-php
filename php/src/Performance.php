@@ -6,14 +6,9 @@ namespace Theatrical;
 
 final class Performance
 {
-    /**
-     * @var string
-     */
     public string $play_id;
 
-    /**
-     * @var int
-     */
+
     public int $audience;
 
     public \Theatrical\Play $play;
