@@ -31,7 +31,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::PHP_74);
     $containerConfigurator->import(SetList::PHP_80);
     $containerConfigurator->import(SetList::CODE_QUALITY);
-//    $containerConfigurator->import(SetList::CODING_STYLE);
+    $containerConfigurator->import(SetList::CODING_STYLE);
 //    $containerConfigurator->import(PHPUnitSetList::PHPUNIT_80); // Upgrade PHPUnit to 8, run one at a time
 //    $containerConfigurator->import(PHPUnitSetList::PHPUNIT_90);
 //    $containerConfigurator->import(PHPUnitSetList::PHPUNIT_91);

@@ -12,6 +12,7 @@ final class TragedyCalculator extends PerformanceCalculator
         if ($this->performance->audience > 30) {
             $result += 1000 * ($this->performance->audience - 30);
         }
+
         return $result;
     }
 }

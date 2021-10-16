@@ -54,7 +54,7 @@ final class CreateStatementData
         return match ($play->type) {
             'tragedy' => new TragedyCalculator($performance, $play),
             'comedy'  => new ComedyCalculator($performance, $play),
-            default   => throw new Error("unknown type: {$play->type}"),
+            default   => throw new Error(sprintf('unknown type: %s', $play->type)),
         };
     }
 }

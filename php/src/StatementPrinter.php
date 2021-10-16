@@ -17,13 +17,13 @@ final class StatementPrinter
 
     public function renderPlainText(stdClass $data): string
     {
-        $result = "Statement for {$data->customer}" . PHP_EOL;
+        $result = sprintf('Statement for %s', $data->customer) . PHP_EOL;
         array_map(function ($performance) use (&$result): void {
-            $result .= "  {$performance->play->name}: {$this->usd($performance->amount)}";
-            $result .= " ({$performance->audience} seats)" . PHP_EOL;
+            $result .= sprintf('  %s: %s', $performance->play->name, $this->usd($performance->amount));
+            $result .= sprintf(' (%s seats)', $performance->audience) . PHP_EOL;
         }, $data->performances);
-        $result .= "Amount owed is {$this->usd($data->totalAmount)}" . PHP_EOL;
-        $result .= "You earned {$data->totalVolumeCredits} credits" . PHP_EOL;
+        $result .= sprintf('Amount owed is %s', $this->usd($data->totalAmount)) . PHP_EOL;
+        $result .= sprintf('You earned %s credits', $data->totalVolumeCredits) . PHP_EOL;
         return $result;
     }
 }

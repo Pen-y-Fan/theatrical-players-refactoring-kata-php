@@ -12,6 +12,7 @@ final class ComedyCalculator extends PerformanceCalculator
         if ($this->performance->audience > 20) {
             $result += 10000 + 500 * ($this->performance->audience - 20);
         }
+
         return $result + 300 * $this->performance->audience;
     }
 
