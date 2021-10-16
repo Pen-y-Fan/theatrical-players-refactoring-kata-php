@@ -49,13 +49,12 @@ final class CreateStatementData
         }, $performances);
     }
 
-    private function createPerformanceCalculator(Performance $performance, Play $play): PerformanceCalculator
+    private function createPerformanceCalculator(Performance $performance, Play $play): \Theatrical\ComedyCalculator|\Theatrical\TragedyCalculator
     {
-        switch ($play->type) {
-            case 'tragedy': return new TragedyCalculator($performance, $play);
-            case 'comedy': return new ComedyCalculator($performance, $play);
-            default:
-                throw new Error("unknown type: {$play->type}");
-        }
+        return match ($play->type) {
+            'tragedy' => new TragedyCalculator($performance, $play),
+            'comedy'  => new ComedyCalculator($performance, $play),
+            default   => throw new Error("unknown type: {$play->type}"),
+        };
     }
 }

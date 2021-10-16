@@ -8,14 +8,10 @@ use Error;
 
 class PerformanceCalculator
 {
-    public \Theatrical\Play $play;
-
-    protected \Theatrical\Performance $performance;
-
-    public function __construct(Performance $performance, Play $play)
-    {
-        $this->performance = $performance;
-        $this->play        = $play;
+    public function __construct(
+        protected Performance $performance,
+        public Play $play
+    ) {
     }
 
     /**
