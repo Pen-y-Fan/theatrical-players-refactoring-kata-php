@@ -9,17 +9,14 @@ final class Performance
     /**
      * @var string
      */
-    public $play_id;
+    public string $play_id;
 
     /**
      * @var int
      */
-    public $audience;
+    public int $audience;
 
-    /**
-     * @var Play
-     */
-    public $play;
+    public \Theatrical\Play $play;
 
     public function __construct(string $play_id, int $audience)
     {

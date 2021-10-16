@@ -9,14 +9,14 @@ use Error;
 class PerformanceCalculator
 {
     /**
-     * @var Play
+     * @var \Theatrical\Play
      */
-    public $play;
+    public \Theatrical\Play $play;
 
     /**
-     * @var Performance
+     * @var \Theatrical\Performance
      */
-    protected $performance;
+    protected \Theatrical\Performance $performance;
 
     public function __construct(Performance $performance, Play $play)
     {

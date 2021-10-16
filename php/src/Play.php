@@ -9,12 +9,12 @@ final class Play
     /**
      * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * @var string
      */
-    public $type;
+    public string $type;
 
     public function __construct(string $name, string $type)
     {

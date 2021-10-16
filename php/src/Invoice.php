@@ -9,12 +9,12 @@ final class Invoice
     /**
      * @var string
      */
-    public $customer;
+    public string $customer;
 
     /**
-     * @var array
+     * @var Performance[]
      */
-    public $performances;
+    public array $performances;
 
     public function __construct(string $customer, array $performances)
     {
