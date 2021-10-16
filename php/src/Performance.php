@@ -6,7 +6,11 @@ namespace Theatrical;
 
 final class Performance
 {
-    public \Theatrical\Play $play;
+    public int $amount = 0;
+
+    public int $volumeCredit = 0;
+
+    public Play $play;
 
     public function __construct(
         public string $play_id,

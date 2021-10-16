@@ -10,7 +10,7 @@ final class HtmlStatement
 
     public function print(Invoice $invoice, array $plays): string
     {
-        return $this->renderHtml((new CreateStatementData())->createStatementData($invoice, $plays));
+        return $this->renderHtml((new CreateStatementData($invoice, $plays))->createStatementData());
     }
 
     public function renderHtml(CreateStatementData $data): string

@@ -8,34 +8,43 @@ use Error;
 
 final class CreateStatementData
 {
-    public string $customer;
+    public string $customer = '';
 
     /**
-     * @var mixed[]|mixed
+     * @var Performance[]
      */
-    public mixed $performances;
+    public mixed $performances = [];
 
-    public int $totalVolumeCredits;
+    public int $totalVolumeCredits = 0;
 
-    public int $totalAmount;
+    public int $totalAmount = 0;
 
-    public function createStatementData(Invoice $invoice, array $plays): self
+    /**
+     * @param Play[] $plays
+     */
+    public function __construct(
+        private Invoice $invoice,
+        private array $plays
+    ) {
+    }
+
+    public function createStatementData(): self
     {
-        $this->customer           = $invoice->customer;
-        $this->performances       = $this->enrichPerformance($invoice->performances, $plays);
-        $this->totalVolumeCredits = $this->totalVolumeCredits($this->performances);
+        $this->customer           = $this->invoice->customer;
+        $this->performances       = $this->enrichPerformance();
+        $this->totalVolumeCredits = $this->totalVolumeCredits();
         $this->totalAmount        = $this->totalAmount($this->performances);
         return $this;
     }
 
-    private function playFor(Performance $performance, array $plays): Play
+    private function playFor(Performance $performance): Play
     {
-        return $plays[$performance->play_id];
+        return $this->plays[$performance->play_id];
     }
 
-    private function totalVolumeCredits(array $performances): int
+    private function totalVolumeCredits(): int
     {
-        return array_reduce($performances, fn ($total, $performance): int => $total + $performance->volumeCredit, 0);
+        return array_reduce($this->performances, fn ($total, $performance): int => $total + $performance->volumeCredit, 0);
     }
 
     private function totalAmount(array $performances): int
@@ -44,18 +53,18 @@ final class CreateStatementData
     }
 
     /**
-     * @return mixed[]
+     * @return Performance[]
      */
-    private function enrichPerformance(array $performances, array $plays): array
+    private function enrichPerformance(): array
     {
-        return array_map(function ($performance) use ($plays) {
-            $calculator = $this->createPerformanceCalculator($performance, $this->playFor($performance, $plays));
+        return array_map(function (Performance $performance): Performance {
+            $calculator = $this->createPerformanceCalculator($performance, $this->playFor($performance));
             $result = clone $performance;
             $result->play = clone $calculator->play;
             $result->amount = $calculator->getAmount();
             $result->volumeCredit = $calculator->volumeCredits();
             return $result;
-        }, $performances);
+        }, $this->invoice->performances);
     }
 
     private function createPerformanceCalculator(Performance $performance, Play $play): ComedyCalculator|TragedyCalculator

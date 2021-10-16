@@ -10,13 +10,16 @@ final class StatementPrinter
 
     public function print(Invoice $invoice, array $plays): string
     {
-        return $this->renderPlainText((new CreateStatementData())->createStatementData($invoice, $plays));
+        return $this->renderPlainText((new CreateStatementData($invoice, $plays))->createStatementData());
     }
 
     public function renderPlainText(CreateStatementData $data): string
     {
         $result = sprintf('Statement for %s', $data->customer) . PHP_EOL;
-        array_map(function ($performance) use (&$result): void {
+
+        array_map(/**
+         * @param Performance $performance
+         */ function ($performance) use (&$result): void {
             $result .= sprintf('  %s: %s', $performance->play->name, $this->usd($performance->amount));
             $result .= sprintf(' (%s seats)', $performance->audience) . PHP_EOL;
         }, $data->performances);
