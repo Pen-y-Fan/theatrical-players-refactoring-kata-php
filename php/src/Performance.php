@@ -8,7 +8,6 @@ final class Performance
 {
     public string $play_id;
 
-
     public int $audience;
 
     public \Theatrical\Play $play;

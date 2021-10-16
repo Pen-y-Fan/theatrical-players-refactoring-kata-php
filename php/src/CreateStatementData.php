@@ -26,16 +26,12 @@ final class CreateStatementData
 
     private function totalVolumeCredits(array $performances): int
     {
-        return array_reduce($performances, function ($total, $performance) {
-            return $total + $performance->volumeCredit;
-        }, 0);
+        return array_reduce($performances, fn ($total, $performance) => $total + $performance->volumeCredit, 0);
     }
 
     private function totalAmount(array $performances): int
     {
-        return array_reduce($performances, function ($total, $performance) {
-            return $total + $performance->amount;
-        }, 0);
+        return array_reduce($performances, fn ($total, $performance) => $total + $performance->amount, 0);
     }
 
     /**

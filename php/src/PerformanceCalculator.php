@@ -10,7 +10,6 @@ class PerformanceCalculator
 {
     public \Theatrical\Play $play;
 
-
     protected \Theatrical\Performance $performance;
 
     public function __construct(Performance $performance, Play $play)

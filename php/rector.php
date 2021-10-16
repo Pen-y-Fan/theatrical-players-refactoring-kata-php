@@ -28,7 +28,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // here we can define, what sets of rules will be applied
     // tip: use "SetList" class to autocomplete sets
-//    $containerConfigurator->import(SetList::PHP_74);
+    $containerConfigurator->import(SetList::PHP_74);
 //    $containerConfigurator->import(SetList::CODE_QUALITY);
 //    $containerConfigurator->import(SetList::CODING_STYLE);
 //    $containerConfigurator->import(PHPUnitSetList::PHPUNIT_80); // Upgrade PHPUnit to 8, run one at a time

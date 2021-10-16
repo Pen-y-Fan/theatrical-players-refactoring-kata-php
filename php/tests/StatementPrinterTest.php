@@ -23,6 +23,7 @@ final class StatementPrinterTest extends TestCase
             'othello' => new Play('Othello', 'tragedy'),
         ];
 
+        /** @var Performance[] $performances */
         $performances = [
             new Performance('hamlet', 55),
             new Performance('as-like', 35),
