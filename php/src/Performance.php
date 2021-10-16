@@ -23,7 +23,7 @@ final class Performance
 
     public function __construct(string $play_id, int $audience)
     {
-        $this->play_id = $play_id;
+        $this->play_id  = $play_id;
         $this->audience = $audience;
     }
 }

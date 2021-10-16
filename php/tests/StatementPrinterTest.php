@@ -18,7 +18,7 @@ final class StatementPrinterTest extends TestCase
     public function testCanPrintInvoice(): void
     {
         $plays = [
-            'hamlet' => new Play('Hamlet', 'tragedy'),
+            'hamlet'  => new Play('Hamlet', 'tragedy'),
             'as-like' => new Play('As You Like It', 'comedy'),
             'othello' => new Play('Othello', 'tragedy'),
         ];
@@ -28,9 +28,9 @@ final class StatementPrinterTest extends TestCase
             new Performance('as-like', 35),
             new Performance('othello', 40),
         ];
-        $invoice = new Invoice('BigCo', $performances);
+        $invoice          = new Invoice('BigCo', $performances);
         $statementPrinter = new StatementPrinter();
-        $result = $statementPrinter->print($invoice, $plays);
+        $result           = $statementPrinter->print($invoice, $plays);
 
         Approvals::verifyString($result);
     }
@@ -44,7 +44,7 @@ final class StatementPrinterTest extends TestCase
 
         $performances = [new Performance('henry-v', 53), new Performance('as-like', 55)];
 
-        $invoice = new Invoice('BigCo', $performances);
+        $invoice          = new Invoice('BigCo', $performances);
         $statementPrinter = new StatementPrinter();
         $this->expectException(Error::class);
         $statementPrinter->print($invoice, $plays);

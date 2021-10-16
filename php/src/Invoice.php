@@ -18,7 +18,7 @@ final class Invoice
 
     public function __construct(string $customer, array $performances)
     {
-        $this->customer = $customer;
+        $this->customer     = $customer;
         $this->performances = $performances;
     }
 }

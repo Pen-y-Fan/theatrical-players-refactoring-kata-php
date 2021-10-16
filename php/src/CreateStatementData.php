@@ -11,11 +11,11 @@ final class CreateStatementData
 {
     public function createStatementData(Invoice $invoice, array $plays): stdClass
     {
-        $statementData = new stdClass();
-        $statementData->customer = $invoice->customer;
-        $statementData->performances = $this->enrichPerformance($invoice->performances, $plays);
+        $statementData                     = new stdClass();
+        $statementData->customer           = $invoice->customer;
+        $statementData->performances       = $this->enrichPerformance($invoice->performances, $plays);
         $statementData->totalVolumeCredits = $this->totalVolumeCredits($statementData->performances);
-        $statementData->totalAmount = $this->totalAmount($statementData->performances);
+        $statementData->totalAmount        = $this->totalAmount($statementData->performances);
         return $statementData;
     }
 
