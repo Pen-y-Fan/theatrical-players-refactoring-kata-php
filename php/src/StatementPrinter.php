@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-use stdClass;
-
 final class StatementPrinter
 {
     use UsdTrait;
@@ -15,7 +13,7 @@ final class StatementPrinter
         return $this->renderPlainText((new CreateStatementData())->createStatementData($invoice, $plays));
     }
 
-    public function renderPlainText(stdClass $data): string
+    public function renderPlainText(CreateStatementData $data): string
     {
         $result = sprintf('Statement for %s', $data->customer) . PHP_EOL;
         array_map(function ($performance) use (&$result): void {
